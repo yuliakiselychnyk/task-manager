@@ -1,0 +1,110 @@
+/* ===== Контейнер ===== */
+.task-form-wrapper {
+  max-width: 680px;
+  margin: 50px auto;
+  padding: 40px 45px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ===== Заголовок ===== */
+.task-form-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.task-form-title .icon {
+  font-size: 28px;
+  color: #6C63FF;
+}
+
+/* ===== Поля ===== */
+.task-input,
+.task-textarea,
+.task-select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 12px 0 22px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  background: #fafafa;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.task-input:focus,
+.task-textarea:focus,
+.task-select:focus {
+  outline: none;
+  border-color: #6C63FF;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+.task-textarea {
+  min-height: 130px;
+  resize: none;
+}
+
+/* Лейбли */
+.task-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: -10px;
+  display: block;
+}
+
+/* ===== Кнопка ===== */
+.task-submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: #6C63FF;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+  margin-top: 10px;
+}
+
+.task-submit-btn:hover {
+  background: #5a54e6;
+  box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .task-form-wrapper {
+    padding: 25px 20px;
+  }
+  .task-form-title {
+    font-size: 24px;
+  }
+  .task-submit-btn {
+    font-size: 16px;
+  }
+}

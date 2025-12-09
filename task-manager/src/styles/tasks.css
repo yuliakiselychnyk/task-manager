@@ -1,0 +1,75 @@
+.tasks-wrapper {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.status-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.status-switcher button {
+  padding: 8px 20px;
+  border-radius: 8px;
+  background: #f3f3f7;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.status-switcher button.active {
+  background: #6a5cff;
+  color: white;
+  border-color: #6a5cff;
+}
+
+.status-switcher button:hover:not(.active) {
+  background: #ececff;
+}
+
+.tasks-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.task-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-4px);
+}
+
+.edit-btn {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #6753ff;
+  font-weight: 600;
+}
+
+.edit-btn:hover {
+  text-decoration: underline;
+}
+
+.empty-msg {
+  font-size: 18px;
+  opacity: 0.7;
+  text-align: center;
+}

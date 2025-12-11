@@ -1,41 +1,55 @@
+// src/App.js
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Компоненти
 import Navbar from "./components/Navbar";
+
+// Контексти
+import { TasksProvider } from "./context/TasksContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 // Сторінки
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
-import Tasks from "./pages/Tasks";
+import TasksPage from "./pages/TasksPage";
 import TaskDetails from "./pages/TaskDetails";
 import CreateTask from "./pages/CreateTask";
-import Team from "./pages/Team";
-import Reports from "./pages/Reports";
 import EditTask from "./pages/EditTask";
 
-export default function App() {
+import Team from "./pages/Team";
+import Reports from "./pages/Reports";
+
+function App() {
   return (
-    <>
-      {/* Навігація */}
-      <Navbar />
+    <ThemeProvider>
+      <TasksProvider>
+        <Navbar />
 
-      {/* Маршрути */}
-      <Routes>
-        {/* Авторизація */}
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Routes>
+          {/* Авторизація */}
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Основні сторінки */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/tasks/:id" element={<TaskDetails />} />
-        <Route path="/create" element={<CreateTask />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/edit/:id" element={<EditTask />} />
-      </Routes>
-    </>
+          {/* Основні сторінки */}
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          {/* Завдання */}
+          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/tasks/:id" element={<TaskDetails />} />
+          <Route path="/create" element={<CreateTask />} />
+          <Route path="/edit/:id" element={<EditTask />} />
+
+          {/* Команда */}
+          <Route path="/team" element={<Team />} />
+
+          {/* Звіти */}
+          <Route path="/reports" element={<Reports />} />
+        </Routes>
+      </TasksProvider>
+    </ThemeProvider>
   );
 }
+
+export default App;

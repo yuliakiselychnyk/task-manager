@@ -1,0 +1,7 @@
+body[data-theme="dark"] {
+  --bg: #0d0f14;
+  --card: #1a1c23;
+  --text: #f8f8f8;
+  --border: #333;
+  --accent: #5596ff;
+}

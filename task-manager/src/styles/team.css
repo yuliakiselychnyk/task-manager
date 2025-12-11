@@ -1,0 +1,116 @@
+/* src/styles/team.css */
+
+.team-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px 60px;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.team-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #143d96;
+  margin: 0;
+}
+
+.add-member-btn {
+  padding: 10px 20px;
+  background: #2d69e0;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+.add-member-btn:hover {
+  background: #1d54bf;
+}
+
+/* Сітка карток */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* Картка учасника */
+.team-card {
+  background: #ffffff;
+  padding: 22px 20px 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(15, 35, 95, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(15, 35, 95, 0.16);
+}
+
+/* Аватар у кружечку */
+.avatar-wrapper {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 12px auto;
+  background: #f3f6ff;
+}
+
+.team-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 4px 0 4px;
+}
+
+.team-role {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px;
+}
+
+/* Статус */
+.team-status {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.team-status.active {
+  background: #e6f8e6;
+  color: #169c33;
+}
+
+.team-status.inactive {
+  background: #ffe5e5;
+  color: #c83737;
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+  .team-page {
+    padding: 24px 16px 40px;
+  }
+
+  .team-title {
+    font-size: 26px;
+  }
+}

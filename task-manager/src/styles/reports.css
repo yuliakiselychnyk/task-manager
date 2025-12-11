@@ -1,0 +1,49 @@
+.reports-page {
+  padding: 40px;
+}
+
+.reports-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #143d96;
+  margin-bottom: 24px;
+}
+
+/* Контейнер центрує графіки */
+.reports-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Фільтри */
+.reports-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.reports-filters select {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #cdd5e0;
+  background: white;
+  cursor: pointer;
+}
+
+/* Картка графіка — не на весь екран */
+.report-card {
+  width: 100%;
+  max-width: 900px;       /* ⬅ ГОЛОВНЕ — робить графік меншим */
+  background: white;
+  padding: 26px;
+  margin: 22px 0;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.report-card h2 {
+  font-size: 20px;
+  margin-bottom: 14px;
+  color: #143d96;
+}

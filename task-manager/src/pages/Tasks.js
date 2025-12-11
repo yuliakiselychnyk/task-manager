@@ -1,75 +1,96 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useTasks } from "../context/TasksContext";
+import "../styles/taskDetails.css";
 
-function Tasks() {
-  // Тимчасові фейкові дані
-  const tasks = [
-    { id: 1, title: "Зробити макет", status: "Нове", date: "2025-01-10" },
-    { id: 2, title: "Підключити API", status: "В процесі", date: "2025-01-11" },
-    { id: 3, title: "Написати презентацію", status: "Виконано", date: "2025-01-12" },
-  ];
+export default function TaskDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { tasks } = useTasks();
+
+  const task = tasks.find((t) => t.id === Number(id));
+
+  if (!task) {
+    return <p style={{ padding: 40 }}>Завдання не знайдено 😔</p>;
+  }
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>Список задач 📋</h1>
+    <div className="taskdetails-page">
+      <div className="taskdetails-header">
+        <h1>{task.title}</h1>
 
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          maxWidth: "900px",
-          margin: "0 auto",
-          background: "#fff",
-          borderRadius: "10px",
-          boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
-        }}
-      >
-        <thead>
-          <tr style={{ background: "#f4f4f4" }}>
-            <th style={th}>Назва</th>
-            <th style={th}>Статус</th>
-            <th style={th}>Дата</th>
-            <th style={th}>Дії</th>
-          </tr>
-        </thead>
+        <div className="td-actions">
+          <button className="td-btn">✎ Редагувати</button>
+          <button className="td-btn delete" onClick={() => navigate("/tasks")}>
+            ← Назад
+          </button>
+        </div>
+      </div>
 
-        <tbody>
-          {tasks.map(task => (
-            <tr key={task.id}>
-              <td style={td}>{task.title}</td>
-              <td style={td}>{task.status}</td>
-              <td style={td}>{task.date}</td>
-              <td style={td}>
-                <Link to={`/tasks/${task.id}`} style={action}>Переглянути</Link> |{" "}
-                <Link to={`/edit/${task.id}`} style={action}>Редагувати</Link> |{" "}
-                <span style={{ ...action, color: "red", cursor: "pointer" }}>
-                  Видалити
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="taskdetails-block">
+        <h3>Опис</h3>
+        <p className="td-desc">
+          {task.description || "Опис відсутній."}
+        </p>
+      </div>
+
+      <div className="taskdetails-info">
+        <div>
+          <h4>Статус</h4>
+          <p className={`status-badge badge-${task.status}`}>
+            {task.status}
+          </p>
+        </div>
+
+        <div>
+          <h4>Пріоритет</h4>
+          <p className={`priority-badge priority-${task.priority}`}>
+            {task.priority}
+          </p>
+        </div>
+
+        <div>
+          <h4>Дедлайн</h4>
+          <p>{task.due || "—"}</p>
+        </div>
+
+        <div>
+          <h4>Виконавець</h4>
+          <p>{task.assignee || "—"}</p>
+        </div>
+      </div>
+
+      {/* Checklist */}
+      <div className="taskdetails-block">
+        <h3>Підзавдання</h3>
+        <ul className="checklist">
+          <li><input type="checkbox" /> Підготувати матеріали</li>
+          <li><input type="checkbox" /> Узгодити з командою</li>
+          <li><input type="checkbox" /> Провести перевірку</li>
+        </ul>
+      </div>
+
+      {/* Comments */}
+      <div className="taskdetails-block">
+        <h3>Коментарі</h3>
+        <div className="comments">
+          <div className="comment">
+            <strong>Аліса:</strong>
+            <p>Перевірю сьогодні ввечері 🌙</p>
+          </div>
+
+          <div className="comment">
+            <strong>Микола:</strong>
+            <p>Готово на 70% ✔</p>
+          </div>
+        </div>
+
+        <textarea
+          placeholder="Напишіть коментар..."
+          className="comment-input"
+        ></textarea>
+        <button className="comment-btn">Надіслати</button>
+      </div>
     </div>
   );
 }
-
-const th = {
-  padding: "12px",
-  borderBottom: "1px solid #ddd",
-  textAlign: "left",
-  fontWeight: "600"
-};
-
-const td = {
-  padding: "12px",
-  borderBottom: "1px solid #eee"
-};
-
-const action = {
-  color: "#6a5acd",
-  textDecoration: "none",
-  fontWeight: "500"
-};
-
-export default Tasks;

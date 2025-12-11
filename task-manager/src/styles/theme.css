@@ -1,0 +1,125 @@
+/* === GLOBAL THEME: LinkedIn / Facebook style === */
+
+/* Base */
+body {
+  margin: 0;
+  padding: 0;
+  background: #F5F7FA;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #1B1F23;
+}
+
+/* Colors */
+:root {
+  --blue-main: #2D69E0;
+  --blue-dark: #1A4FB5;
+  --blue-light: #E8F0FE;
+
+  --gray-bg: #F5F7FA;
+  --gray-border: #E2E5EA;
+  --gray-text: #6B6E70;
+
+  --white: #FFFFFF;
+
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.07);
+}
+
+/* === Container for all pages === */
+.container {
+  width: 100%;
+  max-width: 1400px;     /* контролює ширину контенту */
+  margin: 0 auto;        /* центрує */
+  padding: 40px 50px;    /* відступи */
+}
+
+
+
+/* === Section Titles === */
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 25px;
+}
+
+/* === Card Grid === */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-gap: 30px;
+  margin-top: 30px;
+}
+
+
+/* === Task Card === */
+.task-card {
+  background: white;
+  padding: 26px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--blue-main);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Task title */
+.task-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+/* Task text */
+.task-card p {
+  margin: 4px 0;
+  color: var(--gray-text);
+  font-size: 15px;
+}
+
+/* === Primary Button === */
+.btn-primary {
+  background: var(--blue-main);
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--blue-dark);
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--blue-dark);
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-border);
+  background: white;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+.tab.active {
+  background: var(--blue-main);
+  color: white;
+  border-color: var(--blue-main);
+}

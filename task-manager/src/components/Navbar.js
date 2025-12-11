@@ -1,29 +1,35 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import "../styles/Navbar.css";
 
 export default function Navbar() {
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path ? "active" : "";
+
   return (
-    <div style={styles.nav}>
-      <Link style={styles.link} to="/dashboard">Dashboard</Link>
-      <Link style={styles.link} to="/tasks">Tasks</Link>
-      <Link style={styles.link} to="/create">Create Task</Link>
-      <Link style={styles.link} to="/team">Team</Link>
-      <Link style={styles.link} to="/reports">Reports</Link>
-    </div>
+    <nav className="navbar">
+      <div className="nav-container">
+
+        {/* ЛОГО ТА МЕНЮ */}
+        <div className="nav-left">
+          <div className="nav-logo">TaskManager</div>
+
+          <div className="nav-links">
+            <Link className={isActive("/dashboard")} to="/dashboard">Огляд</Link>
+            <Link className={isActive("/tasks")} to="/tasks">Завдання</Link>
+            <Link className={isActive("/team")} to="/team">Команда</Link>
+            <Link className={isActive("/reports")} to="/reports">Звіти</Link>
+          </div>
+        </div>
+
+        {/* КНОПКА СПРАВА */}
+        <div className="nav-right">
+          <Link to="/create">
+            <button className="create-btn">+ Створити</button>
+          </Link>
+        </div>
+
+      </div>
+    </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    gap: "20px",
-    padding: "15px 30px",
-    background: "#eee",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#444",
-    fontSize: "18px",
-    fontWeight: "500",
-  },
-};

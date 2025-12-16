@@ -1,80 +1,73 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
+import { useTasks } from "../context/TasksContext";
 
 export default function Dashboard() {
-  const tasks = [
-    { 
-      title: "Оновлення API",
-      due: "2026-04-30",
-      user: "Киселичник Юлія",
-      status: "in-progress",
-      priority: "high"
-    },
-    { 
-      title: "Тестування застосунку",
-      due: "2026-04-22",
-      user: "Іваневич Аліна",
-      status: "new",
-      priority: "medium"
-    },
-    { 
-      title: "Підготувати звіт",
-      due: "2026-04-23",
-      user: "Ганець Микола",
-      status: "overdue",
-      priority: "high"
-    },
-    { 
-      title: "Дизайн інтерфейсу",
-      due: "2026-04-20",
-      user: "Погориляк Аліса",
-      status: "done",
-      priority: "low"
-    },
-  ];
+  const { tasks, updateTask, deleteTask } = useTasks();
+  const navigate = useNavigate();
 
-  // === LABELS ===
+  // ===== LABELS =====
   const getStatusLabel = (status) => {
     switch (status) {
-      case "new": return "Нове";
-      case "in-progress": return "В роботі";
-      case "done": return "Виконано";
-      case "overdue": return "Прострочено";
-      default: return "—";
+      case "new":
+        return "Нове";
+      case "in-progress":
+        return "В роботі";
+      case "completed":
+        return "Виконано";
+      case "overdue":
+        return "Прострочено";
+      default:
+        return "—";
     }
   };
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "new": return "label-new";
-      case "in-progress": return "label-progress";
-      case "done": return "label-done";
-      case "overdue": return "label-overdue";
-      default: return "";
+      case "new":
+        return "label-new";
+      case "in-progress":
+        return "label-progress";
+      case "completed":
+        return "label-done";
+      case "overdue":
+        return "label-overdue";
+      default:
+        return "";
     }
   };
 
   const getPriorityLabel = (priority) => {
     switch (priority) {
-      case "low": return "Низький";
-      case "medium": return "Середній";
-      case "high": return "Високий";
-      default: return "—";
+      case "low":
+        return "Низький";
+      case "medium":
+        return "Середній";
+      case "high":
+        return "Високий";
+      default:
+        return "—";
     }
   };
 
   const getPriorityClass = (priority) => {
     switch (priority) {
-      case "low": return "priority-low";
-      case "medium": return "priority-medium";
-      case "high": return "priority-high";
-      default: return "";
+      case "low":
+        return "priority-low";
+      case "medium":
+        return "priority-medium";
+      case "high":
+        return "priority-high";
+      default:
+        return "";
     }
   };
 
-  const getDeadlineDiff = (due) => {
+  const getDeadlineDiff = (deadline) => {
+    if (!deadline) return "—";
     const now = new Date();
-    const date = new Date(due);
+    const date = new Date(deadline);
     const diff = Math.ceil((date - now) / (1000 * 60 * 60 * 24));
 
     if (diff < 0) return `Прострочено на ${Math.abs(diff)} дн.`;
@@ -82,17 +75,21 @@ export default function Dashboard() {
     return `Через ${diff} дн.`;
   };
 
+  // ===== STATS =====
+  const completed = tasks.filter((t) => t.status === "completed").length;
+  const inProgress = tasks.filter((t) => t.status === "in-progress").length;
+  const newTasks = tasks.filter((t) => t.status === "new").length;
+  const overdue = tasks.filter((t) => t.status === "overdue").length;
+
   return (
     <div className="dashboard-layout">
-
       {/* LEFT */}
       <div className="dashboard-left">
         <h1 className="dashboard-title">Огляд</h1>
 
         <div className="dashboard-grid">
-          {tasks.map((task, i) => (
-            <div key={i} className="dashboard-card">
-
+          {tasks.map((task) => (
+            <div key={task.id} className="dashboard-card">
               <div className="card-header">
                 <span className={`label ${getStatusClass(task.status)}`}>
                   {getStatusLabel(task.status)}
@@ -103,21 +100,41 @@ export default function Dashboard() {
                 </span>
 
                 <div className="card-actions">
-                  <button className="action-btn done">✔</button>
-                  <button className="action-btn edit">✎</button>
-                  <button className="action-btn delete">🗑</button>
+                  <button
+                    className="action-btn done"
+                    title="Виконано"
+                    onClick={() => updateTask(task.id, { status: "completed" })}
+                  >
+                    ✔
+                  </button>
+
+                  <button
+                    className="action-btn edit"
+                    title="Редагувати"
+                    onClick={() => navigate(`/tasks/${task.id}/edit`)}
+                  >
+                    ✎
+                  </button>
+
+                  <button
+                    className="action-btn delete"
+                    title="Видалити"
+                    onClick={() => deleteTask(task.id)}
+                  >
+                    🗑
+                  </button>
                 </div>
               </div>
 
               <h2 className="dashboard-card__title">{task.title}</h2>
 
               <p className="dashboard-card__meta">
-                Дедлайн: <span>{task.due}</span> —
-                <strong> {getDeadlineDiff(task.due)}</strong>
+                Дедлайн: <span>{task.deadline || "—"}</span> —{" "}
+                <strong>{getDeadlineDiff(task.deadline)}</strong>
               </p>
 
               <p className="dashboard-card__meta">
-                Виконавець: <span>{task.user}</span>
+                Виконавець: <span>{task.user || "—"}</span>
               </p>
             </div>
           ))}
@@ -126,32 +143,53 @@ export default function Dashboard() {
 
       {/* RIGHT SIDEBAR */}
       <aside className="dashboard-sidebar">
-
         <div className="stats-card">
           <h2>Статистика</h2>
-          <p>Виконано: <strong>12</strong></p>
-          <p>В роботі: <strong>4</strong></p>
-          <p>Нові задачі: <strong>3</strong></p>
-          <p>Прострочено: <strong>1</strong></p>
+          <p>
+            Виконано: <strong>{completed}</strong>
+          </p>
+          <p>
+            В роботі: <strong>{inProgress}</strong>
+          </p>
+          <p>
+            Нові задачі: <strong>{newTasks}</strong>
+          </p>
+          <p>
+            Прострочено: <strong>{overdue}</strong>
+          </p>
         </div>
 
         <div className="stats-card">
           <h2>Прогрес тижня</h2>
           <div className="progress-bar">
-            <div className="progress-fill" style={{ width: "70%" }}></div>
+            <div
+              className="progress-fill"
+              style={{
+                width: tasks.length
+                  ? `${Math.round((completed / tasks.length) * 100)}%`
+                  : "0%",
+              }}
+            />
           </div>
-          <p>70% виконано</p>
+          <p>
+            {tasks.length ? Math.round((completed / tasks.length) * 100) : 0}%
+            виконано
+          </p>
         </div>
 
         <div className="stats-card">
           <h2>Найближчі дедлайни</h2>
           <ul>
-            <li>Тестування — 22.04</li>
-            <li>Звіт — 23.04</li>
-            <li>API — 30.04</li>
+            {tasks
+              .filter((t) => t.deadline)
+              .slice(0, 3)
+              .map((t) => (
+                <li key={t.id}>
+                  {t.title} — {t.deadline}
+                </li>
+              ))}
           </ul>
         </div>
-
       </aside>
     </div>
   );

@@ -1,7 +1,10 @@
+// src/pages/Register.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -11,11 +14,8 @@ export default function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Тимчасово просто виводимо дані
-    console.log("REGISTER DATA:", { name, email, password });
-
-    // Після реєстрації перенаправлення на логін
-    navigate("/");
+    register(name, email); // 🔑
+    navigate("/dashboard");
   };
 
   return (
@@ -25,10 +25,10 @@ export default function Register() {
       <form onSubmit={handleRegister} style={styles.form}>
         <input
           style={styles.input}
-          type="text"
           placeholder="Ваше імʼя"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
 
         <input
@@ -37,6 +37,7 @@ export default function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
@@ -45,18 +46,17 @@ export default function Register() {
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
-        <button style={styles.button} type="submit">
-          Зареєструватись
-        </button>
+        <button style={styles.button}>Зареєструватись</button>
       </form>
 
-      <p style={{ textAlign: "center", marginTop: "10px" }}>
+      <p style={styles.footerText}>
         Вже маєте акаунт?{" "}
-        <a href="/" style={{ color: "#6a5acd" }}>
+        <Link to="/login" style={styles.link}>
           Увійти
-        </a>
+        </Link>
       </p>
     </div>
   );
@@ -65,34 +65,23 @@ export default function Register() {
 const styles = {
   container: {
     maxWidth: "400px",
-    margin: "80px auto",
-    padding: "20px",
+    margin: "100px auto",
+    padding: "28px",
     borderRadius: "12px",
-    background: "#f4f4f4",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+    background: "#fff",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
   },
-  title: {
-    textAlign: "center",
-    marginBottom: "20px",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-  },
-  input: {
-    padding: "12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    fontSize: "16px",
-  },
+  title: { textAlign: "center", marginBottom: "20px" },
+  form: { display: "flex", flexDirection: "column", gap: "12px" },
+  input: { padding: "12px", borderRadius: "8px", border: "1px solid #ccc" },
   button: {
     padding: "12px",
     borderRadius: "8px",
     border: "none",
-    background: "#6a5acd",
+    background: "#2d69e0",
     color: "white",
-    fontSize: "18px",
     cursor: "pointer",
   },
+  footerText: { marginTop: "16px", textAlign: "center" },
+  link: { color: "#2d69e0", fontWeight: 600 },
 };

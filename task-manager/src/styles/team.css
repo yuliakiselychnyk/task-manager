@@ -1,7 +1,7 @@
 /* src/styles/team.css */
 
 .team-page {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 40px 40px 60px;
 }
@@ -35,15 +35,16 @@
   background: #1d54bf;
 }
 
-/* Сітка карток */
+/* ===== GRID: 5 В РЯД ===== */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
 }
 
-/* Картка учасника */
+/* ===== CARD ===== */
 .team-card {
+  position: relative;
   background: #ffffff;
   padding: 22px 20px 24px;
   border-radius: 16px;
@@ -57,13 +58,13 @@
   box-shadow: 0 10px 28px rgba(15, 35, 95, 0.16);
 }
 
-/* Аватар у кружечку */
+/* ===== AVATAR ===== */
 .avatar-wrapper {
   width: 84px;
   height: 84px;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 12px auto;
+  margin: 0 auto 12px;
   background: #f3f6ff;
 }
 
@@ -73,25 +74,28 @@
   object-fit: cover;
 }
 
+/* ===== TEXT ===== */
 .team-name {
   font-size: 18px;
   font-weight: 700;
-  margin: 4px 0 4px;
+  margin: 4px 0;
 }
 
 .team-role {
   font-size: 14px;
   color: #666;
-  margin: 0 0 10px;
+  margin-bottom: 10px;
 }
 
-/* Статус */
+/* ===== STATUS BUTTON ===== */
 .team-status {
-  display: inline-block;
-  padding: 5px 14px;
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
+  transition: 0.2s ease;
 }
 
 .team-status.active {
@@ -99,18 +103,69 @@
   color: #169c33;
 }
 
+.team-status.active:hover {
+  background: #d2f2d2;
+}
+
 .team-status.inactive {
   background: #ffe5e5;
   color: #c83737;
 }
 
-/* Адаптив */
-@media (max-width: 900px) {
-  .team-page {
-    padding: 24px 16px 40px;
-  }
+.team-status.inactive:hover {
+  background: #ffd1d1;
+}
 
-  .team-title {
-    font-size: 26px;
+/* ===== DELETE (ТІЛЬКИ НА HOVER) ===== */
+.delete-member-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: 0.2s ease;
+}
+
+.team-card:hover .delete-member-btn {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.delete-member-btn:hover {
+  opacity: 1;
+  color: #c83737;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .team-grid {
+    grid-template-columns: 1fr;
   }
 }

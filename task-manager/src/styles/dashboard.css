@@ -1,108 +1,153 @@
-/* -------------------------------
+/* ===============================
    Загальний лейаут
--------------------------------- */
+================================ */
 .dashboard-layout {
   display: flex;
   gap: 32px;
   padding: 40px 60px;
+  background: #f6f8fc;
+  min-height: calc(100vh - 70px);
 }
 
 .dashboard-left {
   flex: 1;
 }
 
+/* ===============================
+   Заголовок
+================================ */
 .dashboard-title {
   font-size: 36px;
   font-weight: 700;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   color: #0b347f;
 }
 
-/* -------------------------------
+/* ===============================
+   Фільтри (TasksPage)
+================================ */
+.dashboard-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.filter-pill {
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 1px solid #d0d7e2;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.filter-pill:hover {
+  background: #eef3ff;
+  border-color: #2d6be0;
+}
+
+.filter-pill.active {
+  background: #2d6be0;
+  color: #fff;
+  border-color: #2d6be0;
+}
+
+/* ===============================
    Сітка задач — 2 колонки
--------------------------------- */
+================================ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 28px;
 }
 
-/* -------------------------------
+/* ===============================
    Картка задачі
--------------------------------- */
+================================ */
 .dashboard-card {
-  background: #fff;
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 16px;
   padding: 24px 28px;
   border-left: 5px solid #2d6be0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-  transition: 0.2s;
+  box-shadow: 0 6px 20px rgba(15, 35, 95, 0.08);
+  transition: 0.25s ease;
   position: relative;
 }
 
 .dashboard-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 7px 18px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 26px rgba(15, 35, 95, 0.12);
 }
 
+/* ===============================
+   Верх картки
+================================ */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* ===============================
+   Назва
+================================ */
 .dashboard-card__title {
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-/* -------------------------------
+/* ===============================
    Метадані
--------------------------------- */
+================================ */
 .dashboard-card__meta {
   font-size: 14px;
   margin: 4px 0;
   color: #444;
 }
 
-.dashboard-card__meta span {
+.dashboard-card__meta span,
+.dashboard-card__meta strong {
   font-weight: 600;
 }
 
-/* -------------------------------
+/* ===============================
    Лейбли статусів
--------------------------------- */
+================================ */
 .label {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 30px;
+  border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
-  margin-right: 8px;
 }
 
-/* НОВЕ */
+/* Статуси */
 .label-new {
-  background: #cfe0ff;
-  color: #0051d3;
+  background: #e6edff;
+  color: #2340a5;
 }
 
-/* В роботі */
 .label-progress {
-  background: #ffe9bf;
-  color: #a86800;
+  background: #fff2d6;
+  color: #b37300;
 }
 
-/* Виконано */
 .label-done {
-  background: #c9f7d5;
-  color: #0a7c2d;
+  background: #e2f7e9;
+  color: #207744;
 }
 
-/* Прострочено */
 .label-overdue {
-  background: #ffd0d0;
-  color: #c60000;
+  background: #ffe1e1;
+  color: #c62828;
 }
 
-/* -------------------------------
+/* ===============================
    Пріоритети
--------------------------------- */
+================================ */
 .priority-low {
   background: #dbf7d7;
   color: #0d8a2b;
@@ -118,9 +163,54 @@
   color: #b30000;
 }
 
-/* -------------------------------
-   Права панель
--------------------------------- */
+/* ===============================
+   Кнопки дій
+================================ */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ✔ */
+.action-btn.done:hover {
+  background: #d9f7d9;
+  border-color: #46b746;
+}
+
+/* ✎ */
+.action-btn.edit:hover {
+  background: #e3ebff;
+  border-color: #4b7fff;
+}
+
+/* 🗑 */
+.action-btn.delete:hover {
+  background: #ffe5e5;
+  border-color: #ff5b5b;
+}
+
+/* ===============================
+   Права панель (Dashboard)
+================================ */
 .dashboard-sidebar {
   width: 320px;
   display: flex;
@@ -132,10 +222,10 @@
   background: #fff;
   border-radius: 14px;
   padding: 24px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(15, 35, 95, 0.08);
 }
 
-/* Прогрес бар */
+/* Прогрес */
 .progress-bar {
   width: 100%;
   height: 10px;
@@ -151,14 +241,14 @@
   border-radius: 6px;
 }
 
-/* -------------------------------
+/* ===============================
    Адаптив
--------------------------------- */
+================================ */
 @media (max-width: 1250px) {
   .dashboard-layout {
     flex-direction: column;
   }
-  
+
   .dashboard-sidebar {
     width: 100%;
   }
@@ -168,49 +258,4 @@
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-}
-/* Блок з кнопками */
-.card-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-/* Базова стилізація кнопок */
-.action-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #d0d0d0;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-/* Hover ефект */
-.action-btn:hover {
-  background: #f2f2f2;
-  transform: translateY(-2px);
-}
-
-/* ✔ Виконано */
-.action-btn.done:hover {
-  background: #d9f7d9;
-  border-color: #46b746;
-}
-
-/* ✎ Редагувати */
-.action-btn.edit:hover {
-  background: #e3ebff;
-  border-color: #4b7fff;
-}
-
-/* 🗑 Видалити */
-.action-btn.delete:hover {
-  background: #ffe5e5;
-  border-color: #ff5b5b;
 }

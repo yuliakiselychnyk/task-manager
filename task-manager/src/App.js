@@ -1,54 +1,89 @@
-// src/App.js
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-// Контексти
 import { TasksProvider } from "./context/TasksContext";
-import { ThemeProvider } from "./context/ThemeContext";
-
-// Сторінки
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import { AuthProvider } from "./context/AuthContext";
 
 import Dashboard from "./pages/Dashboard";
 import TasksPage from "./pages/TasksPage";
-import TaskDetails from "./pages/TaskDetails";
 import CreateTask from "./pages/CreateTask";
 import EditTask from "./pages/EditTask";
-
 import Team from "./pages/Team";
 import Reports from "./pages/Reports";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
-    <ThemeProvider>
+    <AuthProvider>
       <TasksProvider>
         <Navbar />
 
         <Routes>
-          {/* Авторизація */}
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Основні сторінки */}
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Завдання */}
-          <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/tasks/:id" element={<TaskDetails />} />
-          <Route path="/create" element={<CreateTask />} />
-          <Route path="/edit/:id" element={<EditTask />} />
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute>
+                <TasksPage />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Команда */}
-          <Route path="/team" element={<Team />} />
+          <Route
+            path="/tasks/create"
+            element={
+              <ProtectedRoute>
+                <CreateTask />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Звіти */}
-          <Route path="/reports" element={<Reports />} />
+          <Route
+            path="/tasks/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditTask />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/team"
+            element={
+              <ProtectedRoute>
+                <Team />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute>
+                <Reports />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </TasksProvider>
-    </ThemeProvider>
+    </AuthProvider>
   );
 }
 

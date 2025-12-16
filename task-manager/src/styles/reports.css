@@ -34,7 +34,7 @@
 /* Картка графіка — не на весь екран */
 .report-card {
   width: 100%;
-  max-width: 900px;       /* ⬅ ГОЛОВНЕ — робить графік меншим */
+  max-width: 900px; /* ⬅ ГОЛОВНЕ — робить графік меншим */
   background: white;
   padding: 26px;
   margin: 22px 0;

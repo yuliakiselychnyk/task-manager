@@ -1,20 +1,21 @@
+// src/pages/Login.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const handleLogin = (e) => {
-  e.preventDefault();
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-  // тимчасово вважаємо будь-які дані "успішним логіном"
-  navigate("/dashboard");
-};
-
+    login(email); // 🔑 ключовий момент
+    navigate("/dashboard");
+  };
 
   return (
     <div style={styles.container}>
@@ -27,6 +28,7 @@ const handleLogin = (e) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
@@ -35,12 +37,20 @@ const handleLogin = (e) => {
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button style={styles.button} type="submit">
           Увійти
         </button>
       </form>
+
+      <p style={styles.footerText}>
+        Немає акаунту?{" "}
+        <Link to="/register" style={styles.link}>
+          Зареєструватись
+        </Link>
+      </p>
     </div>
   );
 }
@@ -48,40 +58,23 @@ const handleLogin = (e) => {
 const styles = {
   container: {
     maxWidth: "400px",
-    margin: "80px auto",
-    padding: "20px",
+    margin: "100px auto",
+    padding: "28px",
     borderRadius: "12px",
-    background: "#f4f4f4",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+    background: "#fff",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
   },
-  title: {
-    textAlign: "center",
-    marginBottom: "20px",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-  },
-  input: {
-    padding: "12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    fontSize: "16px",
-  },
+  title: { textAlign: "center", marginBottom: "20px" },
+  form: { display: "flex", flexDirection: "column", gap: "12px" },
+  input: { padding: "12px", borderRadius: "8px", border: "1px solid #ccc" },
   button: {
     padding: "12px",
     borderRadius: "8px",
     border: "none",
-    background: "#6a5acd",
+    background: "#2d69e0",
     color: "white",
-    fontSize: "18px",
     cursor: "pointer",
   },
+  footerText: { marginTop: "16px", textAlign: "center" },
+  link: { color: "#2d69e0", fontWeight: 600 },
 };
-<p style={{ textAlign: "center" }}>
-  Немає акаунту?{" "}
-  <a href="/register" style={{ color: "#6a5acd" }}>
-    Зареєструватись
-  </a>
-</p>

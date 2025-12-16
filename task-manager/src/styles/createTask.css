@@ -1,3 +1,8 @@
+/* ===== GLOBAL FIX ===== */
+* {
+  box-sizing: border-box;
+}
+
 /* ===== Контейнер ===== */
 .task-form-wrapper {
   max-width: 680px;
@@ -6,17 +11,17 @@
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  animation: fadeIn .4s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    translate: 0 10px;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    translate: 0 0;
+    transform: translateY(0);
   }
 }
 
@@ -35,51 +40,75 @@
 
 .task-form-title .icon {
   font-size: 28px;
-  color: #6C63FF;
+  color: #6c63ff;
 }
 
-/* ===== Поля ===== */
-.task-input,
-.task-textarea,
-.task-select {
-  width: 100%;
-  padding: 14px 16px;
-  margin: 12px 0 22px;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  background: #fafafa;
-  font-size: 16px;
-  transition: 0.2s ease;
-}
-
-.task-input:focus,
-.task-textarea:focus,
-.task-select:focus {
-  outline: none;
-  border-color: #6C63FF;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
-}
-
-.task-textarea {
-  min-height: 130px;
-  resize: none;
-}
-
-/* Лейбли */
+/* ===== Лейбли ===== */
 .task-label {
   font-size: 15px;
   font-weight: 600;
   color: #333;
-  margin-bottom: -10px;
   display: block;
+  margin-bottom: 6px;
 }
 
-/* ===== Кнопка ===== */
+/* ===== INPUT / SELECT / TEXTAREA ===== */
+.task-input,
+.task-select,
+.task-textarea {
+  width: 100%;
+  height: 52px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  background: #fafafa;
+
+  font-size: 16px;
+  font-family: inherit;
+
+  transition: 0.2s ease;
+
+  /* IMPORTANT */
+  box-sizing: border-box;
+}
+
+/* textarea exception */
+.task-textarea {
+  height: auto;
+  min-height: 130px;
+  resize: none;
+}
+
+/* focus */
+.task-input:focus,
+.task-select:focus,
+.task-textarea:focus {
+  outline: none;
+  border-color: #6c63ff;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+/* ===== REMOVE BROWSER DEFAULT ===== */
+.task-select,
+.task-input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* ===== FIX DATE ICON POSITION ===== */
+.task-input[type="date"] {
+  padding-right: 16px;
+}
+
+/* ===== КНОПКА ===== */
 .task-submit-btn {
   width: 100%;
-  padding: 15px;
-  background: #6C63FF;
+  height: 54px;
+  background: #6c63ff;
   border: none;
   border-radius: 12px;
   color: #fff;
@@ -96,14 +125,16 @@
   transform: translateY(-2px);
 }
 
-/* Mobile */
+/* ===== MOBILE ===== */
 @media (max-width: 600px) {
   .task-form-wrapper {
     padding: 25px 20px;
   }
+
   .task-form-title {
     font-size: 24px;
   }
+
   .task-submit-btn {
     font-size: 16px;
   }
